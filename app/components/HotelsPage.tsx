@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { MapPinIcon, ListFilterIcon } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -221,7 +221,45 @@ const allHotels = [
   },
 ];
 
+// Loading component for Suspense fallback
+const HotelsPageLoading = () => {
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-32">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[1, 2, 3, 4].map((item) => (
+              <div key={item} className="rounded-lg overflow-hidden shadow-lg">
+                <div className="h-48 bg-gray-300"></div>
+                <div className="p-4">
+                  <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                  <div className="flex justify-between">
+                    <div className="h-5 bg-gray-200 rounded w-1/4"></div>
+                    <div className="h-5 bg-gray-200 rounded w-1/4"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main component without search params
 export default function HotelsPage() {
+  return (
+    <Suspense fallback={<HotelsPageLoading />}>
+      <HotelsContent />
+    </Suspense>
+  );
+}
+
+// Content component that uses search params
+function HotelsContent() {
   const searchParams = useSearchParams();
 
   const [darkMode, setDarkMode] = useState(false);
