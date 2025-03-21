@@ -5,6 +5,7 @@ import { MapPinIcon, ListFilterIcon } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 // Expanded hotel data
 const allHotels = [
@@ -221,6 +222,8 @@ const allHotels = [
 ];
 
 export default function HotelsPage() {
+  const searchParams = useSearchParams();
+
   const [darkMode, setDarkMode] = useState(false);
   const [filteredHotels, setFilteredHotels] = useState(allHotels);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
@@ -228,30 +231,30 @@ export default function HotelsPage() {
   const [locationFilter, setLocationFilter] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  // Get search parameters
+  const checkin = searchParams?.get("checkin") || "";
+  const checkout = searchParams?.get("checkout") || "";
+  const guests = searchParams?.get("guests") || "1";
+  const locationParam = searchParams?.get("location") || "";
+
   // Get URL parameters for search
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const location = params.get("location");
-    const checkin = params.get("checkin");
-    const checkout = params.get("checkout");
-    const guests = params.get("guests");
-
     // If there are search parameters, filter the hotels
-    if (location) {
-      setLocationFilter(location);
-      filterHotels(location, priceRange, ratingFilter);
+    if (locationParam) {
+      setLocationFilter(locationParam);
+      filterHotels(locationParam, priceRange, ratingFilter);
     }
 
     // We'd store these values for booking purposes
     console.log({
-      location,
+      location: locationParam,
       priceRange,
       ratingFilter,
       checkin,
       checkout,
       guests,
     });
-  }, [priceRange, ratingFilter]);
+  }, [locationParam, priceRange, ratingFilter, checkin, checkout, guests]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -440,18 +443,7 @@ export default function HotelsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {featuredHotels.map((hotel) => (
                 <Link
-                  href={`/hotel/${hotel.id}?checkin=${
-                    new URLSearchParams(window.location.search).get(
-                      "checkin"
-                    ) || ""
-                  }&checkout=${
-                    new URLSearchParams(window.location.search).get(
-                      "checkout"
-                    ) || ""
-                  }&guests=${
-                    new URLSearchParams(window.location.search).get("guests") ||
-                    "1"
-                  }`}
+                  href={`/hotel/${hotel.id}?checkin=${checkin}&checkout=${checkout}&guests=${guests}`}
                   key={hotel.id}
                 >
                   <div
@@ -520,16 +512,7 @@ export default function HotelsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {regularHotels.map((hotel) => (
               <Link
-                href={`/hotel/${hotel.id}?checkin=${
-                  new URLSearchParams(window.location.search).get("checkin") ||
-                  ""
-                }&checkout=${
-                  new URLSearchParams(window.location.search).get("checkout") ||
-                  ""
-                }&guests=${
-                  new URLSearchParams(window.location.search).get("guests") ||
-                  "1"
-                }`}
+                href={`/hotel/${hotel.id}?checkin=${checkin}&checkout=${checkout}&guests=${guests}`}
                 key={hotel.id}
               >
                 <div
