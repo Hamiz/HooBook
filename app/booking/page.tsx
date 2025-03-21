@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,6 +8,14 @@ import Link from "next/link";
 import { CalendarIcon, UserIcon, BedIcon, MapPinIcon } from "lucide-react";
 
 export default function BookingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingContent />
+    </Suspense>
+  );
+}
+
+function BookingContent() {
   const [darkMode, setDarkMode] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -24,8 +32,8 @@ export default function BookingPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // ✅ `useSearchParams()` is now inside a component wrapped in <Suspense>
   const searchParams = useSearchParams();
-
   const hotelId = searchParams.get("hotelId") || "";
   const hotelName = searchParams.get("hotelName") || "";
   const location = searchParams.get("location") || "";
