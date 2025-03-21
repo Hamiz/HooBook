@@ -13,7 +13,7 @@ const featuredHotels = [
     location: "Stavanger, Norway",
     price: 120,
     rating: 4.8,
-    image: "/mountain-resort.jpg",
+    image: "/images/ammar-andiko-tu98qkamdNM-unsplash.jpg",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const featuredHotels = [
     location: "Bergen, Norway",
     price: 150,
     rating: 4.6,
-    image: "/seaside-hotel.jpg",
+    image: "/images/artiom-vallat-rFxk_Ea9PME-unsplash.jpg",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const featuredHotels = [
     location: "Oslo, Norway",
     price: 180,
     rating: 4.7,
-    image: "/city-hotel.jpg",
+    image: "/images/andrea-cau-nV7GJmSq3zc-unsplash.jpg",
   },
   {
     id: 4,
@@ -37,15 +37,27 @@ const featuredHotels = [
     location: "Tromsø, Norway",
     price: 200,
     rating: 4.9,
-    image: "/northern-lodge.jpg",
+    image: "/images/vincent-guth-MAxHEAaAukI-unsplash.jpg",
   },
 ];
 
 const popularDestinations = [
-  { id: 1, name: "Stavanger", image: "/stavanger.jpg" },
-  { id: 2, name: "Oslo", image: "/oslo.jpg" },
-  { id: 3, name: "Bergen", image: "/bergen.jpg" },
-  { id: 4, name: "Tromsø", image: "/tromso.jpg" },
+  {
+    id: 1,
+    name: "Stavanger",
+    image: "/images/cristina-gottardi-ru4gWU_sSpQ-unsplash.jpg",
+  },
+  {
+    id: 2,
+    name: "Oslo",
+    image: "/images/annie-spratt-PlM2XRenqw4-unsplash.jpg",
+  },
+  { id: 3, name: "Bergen", image: "/images/mp-fV2dM2WvKvE-unsplash.jpg" },
+  {
+    id: 4,
+    name: "Tromsø",
+    image: "/images/vincent-guth-MAxHEAaAukI-unsplash.jpg",
+  },
 ];
 
 // Popular cities for location suggestions

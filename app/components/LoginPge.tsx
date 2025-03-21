@@ -19,7 +19,7 @@ export default function LoginPage() {
     setDarkMode(!darkMode);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
