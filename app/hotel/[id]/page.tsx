@@ -1,10 +1,9 @@
 "use client";
 
-import { Suspense } from "react";
 import { useParams } from "next/navigation";
 import HotelDetailPage from "../../components/HotelDetailPage";
 
-function HotelPage() {
+export default function HotelPage() {
   // Use useParams to get the ID from the URL path segment
   const params = useParams();
   const id = params?.id ? String(params.id) : "";
@@ -14,12 +13,4 @@ function HotelPage() {
   }
 
   return <HotelDetailPage id={id} />;
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <HotelPage />
-    </Suspense>
-  );
 }
